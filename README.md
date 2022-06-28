@@ -21,7 +21,7 @@
 
 <table align="center">
   <tr>
-    <td align="center"><a href="https://github.com/Ldj-git"><img src="https://avatars.githubusercontent.com/u/68588092?v=4" width="100px;" alt=""/><br /><sub>남기환<br><img src="https://us-central1-progress-markdown.cloudfunctions.net/progress/0" /></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/Ldj-git"><img src="https://avatars.githubusercontent.com/u/33095858?v=4" width="100px;" alt=""/><br /><sub>남기환<br><img src="https://us-central1-progress-markdown.cloudfunctions.net/progress/0" /></sub></a><br /></td>
     <td align="center"><a href="https://github.com/kimbank"><img src="https://avatars.githubusercontent.com/u/87305109?v=4" width="100px;" alt=""/><br /><sub>문철현<br><img src="https://us-central1-progress-markdown.cloudfunctions.net/progress/0" /></sub></a><br /></td>
     <td align="center"><a href="https://github.com/RealKunse"><img src="https://avatars.githubusercontent.com/u/51011193?v=4" width="100px;" alt=""/><br /><sub>신희상<br><img src="https://us-central1-progress-markdown.cloudfunctions.net/progress/0" /></sub></a><br /></td>
     <td align="center"><a href="https://github.com/kwarksh"><img src="https://avatars.githubusercontent.com/u/68470454?v=4" width="100px;" alt=""/><br /><sub>권혁은<br><img src="https://us-central1-progress-markdown.cloudfunctions.net/progress/0" /></sub></a><br /></td>
@@ -29,3 +29,4 @@
 </table>
 
 <br /><br />
+디자인 폼 출처 : 김은행
