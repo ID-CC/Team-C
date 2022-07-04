@@ -22,14 +22,11 @@ def dropDotsInTips(id):                 # 끝부분 점 제거
     if(id[-1] == "."):
         flag[1] = True
         
-    if flag[0] and flag[1]:             # [앞, 뒤]에 점이 있다면 각각 str 인덱싱을 통해 리턴한다.
-        return id[1:len(id)-1]
-    elif flag[0]:
-        return id[1:]
-    elif flag[1]:
-        return id[:len(id)-1]
-    else:                               # 없음 말고 ㅋ
-        return id
+    if flag[0]:                       # [앞, 뒤]에 점이 있다면 각각 str 인덱싱을 통해 리턴한다.
+        id =  id[1:]
+    if flag[1]:
+        id = id[:-1]
+    return id
 
 def stripStr(id):                       # 문자 최종 처리단
     if len(id) == 0:                    # 문자 길이가 0이면 그냥 aaa를 넣는다.
