@@ -11,6 +11,11 @@ def replaceDots(id):                    # 연속된 점들을 제거
     return ne 
 
 def dropDotsInTips(id):                 # 끝부분 점 제거
+
+    """수정"""
+    if len(id) == 0:
+        return id
+
     flag = [False, False]               # [앞,뒤]로 점이 있는지 확인하는 플래그
     if(id[0] == "."):
         flag[0] = True
