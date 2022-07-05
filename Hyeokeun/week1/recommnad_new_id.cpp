@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// 풀이에 걸린 시간 : 117분
 string solution(string new_id) {
     string answer = "";
     
