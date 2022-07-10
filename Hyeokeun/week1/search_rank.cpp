@@ -89,6 +89,7 @@ int binarySearch(vector<int> list, int target) {
 class ApplicantTree {
 public:    
     unordered_map<string, vector<int>> data;
+    unordered_map<string, int> cashe_query;
 
     ApplicantTree() {
         data = unordered_map<string, vector<int>>();
@@ -123,11 +124,16 @@ public:
         }
         string condition = query.substr(0, pos);
         int score = stoi(query.substr(pos + 1, query.size() - (pos + 1)));
+  
+        if (cashe_query.find(query) != cashe_query.end()) {
+            return cashe_query.at(query);
+        }
 
         if (data.find(condition) == data.end()) 
             return 0;
         vector<int> vec = data.at(condition);
         int cnt = binarySearch(vec, score);
+        cashe_query.insert(pair<string, int>(query, cnt));
         return cnt;
     }
 };
