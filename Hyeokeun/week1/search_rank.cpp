@@ -1,16 +1,19 @@
+#include <iostream>
 #include <string>
 #include <vector>
-
-#define INFO_LEN 5
+#include <unordered_map>
+#include <algorithm>
 
 using namespace std;
 
-// 203분 소요
+// https://programmers.co.kr/learn/courses/30/lessons/72412
+// 14:14 ~ 19:30 316분
+// 정확도 100%, 효율성 2/4 통과
+
 vector<string> split(string s, string divid) {
     vector<string> v;
     s += divid;
     int pos1 = 0, pos2 = -1;
-    int itr = 0;
     int cnt = 0;
     for (int i = 0; i < s.size(); i++) {
         if (divid.at(cnt) == s.at(i)) {
@@ -18,13 +21,16 @@ vector<string> split(string s, string divid) {
                 pos2 = i - 1;
             }
             cnt++;
+            if (cnt == divid.size()) {
+                if (pos2 != -1)
+                    v.push_back(s.substr(pos1, pos2 - pos1 + 1));
+
+                pos1 = i + 1;
+                pos2 = -1;
+                cnt = 0;
+            }
         }
-
-        if (cnt == divid.size()) {
-            if (pos2 != -1)
-                v.push_back(s.substr(pos1, pos2 - pos1 + 1));
-
-            pos1 = i + 1;
+        else if (cnt > 0) {
             pos2 = -1;
             cnt = 0;
         }
@@ -33,167 +39,125 @@ vector<string> split(string s, string divid) {
     return v;
 }
 
-class Info {
-public:
-    string m_language;
-    string m_major;
-    string m_career;
-    string m_favour;
-    int m_score;
+bool comp(int a, int b) {
+    return a > b;
+}
 
-public:
-    Info() {
-        this->m_language = "";
-        this->m_major = "";
-        this->m_career = "";
-        this->m_favour = "";
-        this->m_score = -1;
-    }
+// 내림차순으로 정렬 된 list 내에서 target의 idx를 찾아 return
+int binarySearch(vector<int> list, int target) {
+    if (list.size() == 0) return 0;
 
-    Info(string language, string major, string career, string favour, int score) {
-        this->m_language = language;
-        this->m_major = major;
-        this->m_career = career;
-        this->m_favour = favour;
-        this->m_score = score;
-    }
+    int left = 0;
+    int right = list.size() - 1;
+    int mid = 0;
+    bool bSearch_sucess = false;
+    while (right >= left) {
+        mid = (left + right) / 2;
 
-    Info(string input) {
-        if (input.size() == 0) {
-            this->m_language = "";
-            this->m_major = "";
-            this->m_career = "";
-            this->m_favour = "";
-            this->m_score = -1;
-            return;
+        if (list.at(mid) == target) {
+            bSearch_sucess = true;
+            break;
         }
-        
-        vector<string> split_str = split(input, " ");
-        if (split_str.size() != INFO_LEN) {
-            this->m_language = "";
-            this->m_major = "";
-            this->m_career = "";
-            this->m_favour = "";
-            this->m_score = -1;
-            return;
-        }
-
-        if (!(Info::verify_language(split_str[0]) && Info::verify_major(split_str[1]) && Info::verify_career(split_str[2]) && Info::verify_favour(split_str[3]))) {
-            this->m_language = "";
-            this->m_major = "";
-            this->m_career = "";
-            this->m_favour = "";
-            this->m_score = -1;
-            return;
-        }
-        int score;
-        if (split_str[4] == "-") {
-            score = -1;
+        else if (list.at(mid) < target) {
+            right = mid - 1;
         }
         else {
-            try {
-                score = stoi(split_str[4]);
-            }
-            catch (...) {
-                this->m_language = "";
-                this->m_major = "";
-                this->m_career = "";
-                this->m_favour = "";
-                this->m_score = -1;
-                return;
-            }
+            left = mid + 1;
         }
-
-        this->m_language = split_str[0];
-        this->m_major = split_str[1];
-        this->m_career = split_str[2];
-        this->m_favour = split_str[3];
-        this->m_score = score;
     }
 
-    bool operator==(Info& target) {
-        bool rtn = (target.m_language == "-" || this->m_language == target.m_language) &&
-            (target.m_major == "-" || this->m_major == target.m_major) &&
-            (target.m_career == "-" || this->m_career == target.m_career) &&
-            (target.m_favour == "-" || this->m_favour == target.m_favour) &&
-            (target.m_score == -1 || this->m_score >= target.m_score);
-        
-        return rtn;
-    }
-
-    static bool verify_language(string input) {
-        if (input.compare("cpp") == 0 || input.compare("java") == 0 || input.compare("python") == 0 || input.compare("-") == 0)
-            return true;
+    // target을 찾지 못했을 때는 target보다 작은 값 중 가장 큰 값의 index (즉 target 이상의 값을 갖는 원소의 수)
+    if (!bSearch_sucess) {
+        if (list.at(mid) > target)
+            return mid + 1;
         else
-            return false;
+            return mid;
     }
 
-    static bool verify_major(string input) {
-        if (input.compare("backend") == 0 || input.compare("frontend") == 0 || input.compare("-") == 0)
-            return true;
-        else
-            return false;
+    // target을 찾았으나, target과 같은 값을 갖는 원소가 여러 개일 경우 고려
+    int search;
+    while (mid < list.size()) {
+        search = list.at(mid);
+        if (search != target)
+            break;
+        mid++;
     }
 
-    static bool verify_career(string input) {
-        if (input.compare("junior") == 0 || input.compare("senior") == 0 || input.compare("-") == 0)
-            return true;
-        else
-            return false;
+    return mid;
+}
+
+class ApplicantTree {
+public:    
+    unordered_map<string, vector<int>> data;
+
+    ApplicantTree() {
+        data = unordered_map<string, vector<int>>();
     }
 
-    static bool verify_favour(string input) {
-        if (input.compare("chicken") == 0 || input.compare("pizza") == 0 || input.compare("-") == 0)
-            return true;
-        else
-            return false;
+    void insert_data(vector<string> condition, int score, string cur = "", int depth = 0) {
+        if (depth == condition.size()) {
+            if (data.find(cur) == data.end()) {
+                vector<int> vec = { score };
+                data.insert(pair<string, vector<int>>(cur, vec));
+            }
+            else {
+                vector<int>& vec = data.at(cur);
+                vec.push_back(score);
+            }
+            return;
+        }
+        if (depth == 0) {
+            insert_data(condition, score, condition.at(depth), depth + 1); // 명시 된 조건으로 검색할 때를 위함
+            insert_data(condition, score, "-", depth + 1); // - 를 이용해서 검색할 때를 위함
+        }
+        else {
+            insert_data(condition, score, cur + " and " + condition.at(depth), depth + 1); // 명시 된 조건으로 검색할 때를 위함
+            insert_data(condition, score, cur + " and -", depth + 1); // - 를 이용해서 검색할 때를 위함
+        }
+    }
+
+    int count_query(string query) {
+        int pos = query.size() - 1;
+        while (query.substr(pos, 1) != " ") {
+            pos--;
+        }
+        string condition = query.substr(0, pos);
+        int score = stoi(query.substr(pos + 1, query.size() - (pos + 1)));
+
+        if (data.find(condition) == data.end()) 
+            return 0;
+        vector<int> vec = data.at(condition);
+        int cnt = binarySearch(vec, score);
+        return cnt;
     }
 };
 
 vector<int> solution(vector<string> info, vector<string> query) {
     vector<int> answer;
-    
-    vector<Info> vec_info;
-    vector<Info> vec_query;
+
+    ApplicantTree tree = ApplicantTree();
+
+    vector<string> condition;
+    vector<string> temp;
+    int score;
 
     for (int i = 0; i < info.size(); i++) {
-        string temp = info.at(i);
+        condition = split(info.at(i), " ");
+        score = stoi(condition.at(4));
+        condition.erase(condition.begin() + 4);
 
-        Info info_trans = Info(temp);
-        if (info_trans.m_language == "") {
-            vector<int> error;
-            return error;
-        }
-        vec_info.push_back(info_trans);
-    }
-
-    string replace_source = " and ";
-    string replace_target = " ";
-    for (int i = 0; i < query.size(); i++) {
-        string temp = query.at(i);
-
-        size_t t = temp.find(replace_source);
-        while (t != string::npos) {
-            temp.replace(t, replace_source.length(), replace_target);
-            t = temp.find(replace_source);
-        }
-        Info info_trans = Info(temp);
-        if (info_trans.m_language == "") {
-            vector<int> error;
-            return error;
-        }
-        vec_query.push_back(info_trans);
-    }
-
-    int cnt = 0;
-    for (int i = 0; i < vec_query.size(); i++) {
-        for (int j = 0; j < vec_info.size(); j++) {
-            if (vec_info.at(j) == vec_query.at(i))
-                cnt++;
-        }
-        answer.push_back(cnt);
-        cnt = 0;
+        tree.insert_data(condition, score);
     }
     
+    for (auto i = tree.data.begin(); i != tree.data.end(); i++) {
+        vector<int>& vec = i->second;
+        sort(vec.begin(), vec.end(), comp);
+    }
+
+    for (int i = 0; i < query.size(); i++) {
+        string query_one = query.at(i);
+        answer.push_back(tree.count_query(query_one));
+    }
+
     return answer;
 }
