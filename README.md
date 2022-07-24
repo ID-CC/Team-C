@@ -24,7 +24,7 @@
     <td align="center"><a href="https://github.com/Ldj-git"><img src="https://avatars.githubusercontent.com/u/33095858?v=4" width="100px;" alt=""/><br /><sub>남기환<br><img src="https://us-central1-progress-markdown.cloudfunctions.net/progress/50" /></sub></a><br /></td>
     <td align="center"><a href="https://github.com/zooxop"><img src="https://avatars.githubusercontent.com/u/13725729?v=4" width="100px;" alt=""/><br /><sub>문철현<br><img src="https://us-central1-progress-markdown.cloudfunctions.net/progress/50" /></sub></a><br /></td>
     <td align="center"><a href="https://github.com/ramer-dev"><img src="https://avatars.githubusercontent.com/u/51011193?v=4" width="100px;" alt=""/><br /><sub>신희상<br><img src="https://us-central1-progress-markdown.cloudfunctions.net/progress/50" /></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/Yagoonin"><img src="https://avatars.githubusercontent.com/u/108348352?v=4" width="100px;" alt=""/><br /><sub>권혁은<br><img src="https://us-central1-progress-markdown.cloudfunctions.net/progress/506" /></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/Yagoonin"><img src="https://avatars.githubusercontent.com/u/108348352?v=4" width="100px;" alt=""/><br /><sub>권혁은<br><img src="https://us-central1-progress-markdown.cloudfunctions.net/progress/50" /></sub></a><br /></td>
   </tr>
 </table>
 
